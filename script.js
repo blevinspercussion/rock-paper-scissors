@@ -4,19 +4,20 @@ function computerPlay() {
     return rps[turn];
 }
 
-function playRound(computerSelection, playerSelection) {
+function playRound(playerSelection, computerSelection) {
     if (playerSelection === 'rock') {
+
         switch (computerSelection) {
             case 'rock':
-                return 'Computer chooses rock...\nDraw! Play again!';
+                return 'You chose rock.\nComputer chooses rock...\nDraw! Play again!';
                 break;
 
             case 'paper':
-                return 'Computer chooses paper...\nPaper covers rock.\nYou lose!';
+                return 'You chose rock.\nComputer chooses paper...\nPaper covers rock.\nYou lose!';
                 break;
 
             case 'scissors':
-                return 'Computer chooses scissors...\nRock smashes scissors.\nYou win!';
+                return 'You chose rock.\nComputer chooses scissors...\nRock smashes scissors.\nYou win!';
                 break;
 
         }
@@ -24,15 +25,15 @@ function playRound(computerSelection, playerSelection) {
     } else if (playerSelection === 'paper') {
         switch (computerSelection) {
             case 'rock':
-                return 'Computer chooses rock...\nPaper covers rock.\nYou win!';
+                return 'You chose paper.\nComputer chooses rock...\nPaper covers rock.\nYou win!';
                 break;
 
             case 'paper':
-                return 'Computer chooses paper...\nDraw! Play again!';
+                return 'You chose paper.\nComputer chooses paper...\nDraw! Play again!';
                 break;
 
             case 'scissors':
-                return 'Computer chooses scissors...\nScissors cut paper.\nYou lose!';
+                return 'You chose paper.\nComputer chooses scissors...\nScissors cut paper.\nYou lose!';
                 break;
 
         }
@@ -40,23 +41,24 @@ function playRound(computerSelection, playerSelection) {
     } else if (playerSelection === 'scissors') {
         switch (computerSelection) {
             case 'rock':
-                return 'Computer chooses rock...\nRock smashes scissors.\nYou lose!';
+                return 'You chose scissors.\nComputer chooses rock...\nRock smashes scissors.\nYou lose!';
                 break;
 
             case 'paper':
-                return 'Computer chooses paper...\nScissors cut paper.\nYou win!';
+                return 'You chose scissors.\nComputer chooses paper...\nScissors cut paper.\nYou win!';
                 break;
 
             case 'scissors':
-                return 'Computer chooses scissors...\nDraw! Play again!';
+                return 'You chose scissors.\nComputer chooses scissors...\nDraw! Play again!';
                 break;
 
         }
     }
 }
 
+function game() {
 
-
+}
 
 
 

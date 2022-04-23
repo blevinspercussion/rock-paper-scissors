@@ -4,7 +4,12 @@ function computerPlay() {
     return rps[turn];
 }
 
+function playerSelection() {
+    return prompt("Choose rock, paper, or scissors: ").toLowerCase();
+}
+
 function playRound(playerSelection, computerSelection) {
+
     if (playerSelection === 'rock') {
 
         switch (computerSelection) {
@@ -57,11 +62,32 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
+    let playerScore = 0, computerScore = 0;
+
+    for (let i = 0; i < 5; i++) {
+        let round = playRound(playerSelection(), computerPlay());
+        console.log(round);
+        if (round.includes('win')) {
+            playerScore += 1;
+        } else if (round.includes('lose')) {
+            computerScore += 1;
+        } else {
+            continue;
+        }
+    }
+
+    if (playerScore > computerScore) {
+        console.log(`Congratulations! You win! Final score: ${playerScore} to ${computerScore}`);
+    } else if (computerScore > playerScore) {
+        console.log(`You lost! Better luck next time! Final score: ${playerScore} to ${computerScore}`);
+    } else {
+        console.log(`It's a draw! Try again until somebody wins! Final score: ${playerScore} to ${computerScore}`);
+    }
 
 }
 
 
-
+game();
 
 
 

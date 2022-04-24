@@ -29,6 +29,10 @@ scissorsButton.addEventListener('click', () => {
     playRound('scissors', computerPlay());
 });
 
+// Set up the score area
+update(pScore, cpuScore, rounds);
+
+
 function update(pScore, cpuScore, rounds) {
 
     playerScore.textContent = `Player: ${pScore}`;

@@ -1,10 +1,33 @@
+// Displays running score tally
+const playerScore = document.querySelector('.player-score');
+const computerScore = document.querySelector('.computer-score');
+
+// Play buttons
 const rockButton = document.querySelector('.btn-rock');
 const paperButton = document.querySelector('.btn-paper');
-const scissorsButton = document.querySelector('.btn-scissers');
+const scissorsButton = document.querySelector('.btn-scissors');
 
-rockButton.addEventListener('click', playRound('rock', computerPlay()));
-paperButton.addEventListener('click', playRound('paper', computerPlay()));
-scissorsButton.addEventListener('click', playerSelection('scissors', computerPlay()));
+// Displays results of the round
+const results = document.querySelector('.results');
+const roundNumber = document.querySelector('.round-number');
+
+// Game variables
+let rounds = 0;
+let pScore = 0;
+let cpuScore = 0;
+
+// Event listeners for play buttons
+rockButton.addEventListener('click', () => {
+    playRound('rock', computerPlay(), rounds);
+});
+
+paperButton.addEventListener('click', () => {
+    playRound('paper', computerPlay(), rounds);
+});
+
+scissorsButton.addEventListener('click', () => {
+    playRound('scissors', computerPlay(), rounds);
+});
 
 
 function computerPlay() {
@@ -13,25 +36,33 @@ function computerPlay() {
     return rps[turn];
 }
 
-// function playerSelection(choice) {
-// return prompt("Choose rock, paper, or scissors: ").toLowerCase();
-// }
 
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection, computerSelection, rounds) {
+    if (rounds >= 5) {
+        endGame(pScore, cpuScore);
+    }
 
     if (playerSelection === 'rock') {
 
         switch (computerSelection) {
             case 'rock':
-                return 'You chose rock.\nComputer chooses rock...\nDraw! Play again!';
+                results.textContent = 'You chose rock.\nComputer chooses rock...\nDraw! Play again!';
+                rounds += 1;
+                update(pScore, cpuScore, rounds);
                 break;
 
             case 'paper':
-                return 'You chose rock.\nComputer chooses paper...\nPaper covers rock.\nYou lose!';
+                results.textContent = 'You chose rock.\nComputer chooses paper...\nPaper covers rock.\nYou lose!';
+                cpuScore += 1;
+                rounds += 1;
+                update(pScore, cpuScore, rounds);
                 break;
 
             case 'scissors':
-                return 'You chose rock.\nComputer chooses scissors...\nRock smashes scissors.\nYou win!';
+                results.textContent = 'You chose rock.\nComputer chooses scissors...\nRock smashes scissors.\nYou win!';
+                pScore += 1;
+                rounds += 1;
+                update(pScore, cpuScore, rounds);
                 break;
 
         }
@@ -39,15 +70,15 @@ function playRound(playerSelection, computerSelection) {
     } else if (playerSelection === 'paper') {
         switch (computerSelection) {
             case 'rock':
-                return 'You chose paper.\nComputer chooses rock...\nPaper covers rock.\nYou win!';
+                results.textContent = 'You chose paper.\nComputer chooses rock...\nPaper covers rock.\nYou win!';
                 break;
 
             case 'paper':
-                return 'You chose paper.\nComputer chooses paper...\nDraw! Play again!';
+                results.textContent = 'You chose paper.\nComputer chooses paper...\nDraw! Play again!';
                 break;
 
             case 'scissors':
-                return 'You chose paper.\nComputer chooses scissors...\nScissors cut paper.\nYou lose!';
+                results.textContent = 'You chose paper.\nComputer chooses scissors...\nScissors cut paper.\nYou lose!';
                 break;
 
         }
@@ -55,48 +86,66 @@ function playRound(playerSelection, computerSelection) {
     } else if (playerSelection === 'scissors') {
         switch (computerSelection) {
             case 'rock':
-                return 'You chose scissors.\nComputer chooses rock...\nRock smashes scissors.\nYou lose!';
+                results.textContent = 'You chose scissors.\nComputer chooses rock...\nRock smashes scissors.\nYou lose!';
                 break;
 
             case 'paper':
-                return 'You chose scissors.\nComputer chooses paper...\nScissors cut paper.\nYou win!';
+                results.textContent = 'You chose scissors.\nComputer chooses paper...\nScissors cut paper.\nYou win!';
                 break;
 
             case 'scissors':
-                return 'You chose scissors.\nComputer chooses scissors...\nDraw! Play again!';
+                results.textContent = 'You chose scissors.\nComputer chooses scissors...\nDraw! Play again!';
                 break;
 
         }
     }
 }
 
-function game() {
-    let playerScore = 0, computerScore = 0;
+function update(pScore, cpuScore, rounds) {
 
-    // for (let i = 0; i < 5; i++) {
-    //     let round = playRound(playerSelection(), computerPlay());
-    //     console.log(round);
-    //     if (round.includes('win')) {
-    //         playerScore += 1;
-    //     } else if (round.includes('lose')) {
-    //         computerScore += 1;
-    //     } else {
-    //         continue;
-    //     }
-    // }
-
-    if (playerScore > computerScore) {
-        console.log(`Congratulations! You win! Final score: ${playerScore} to ${computerScore}`);
-    } else if (computerScore > playerScore) {
-        console.log(`You lost! Better luck next time! Final score: ${playerScore} to ${computerScore}`);
-    } else {
-        console.log(`It's a draw! Try again until somebody wins! Final score: ${playerScore} to ${computerScore}`);
-    }
+    playerScore.textContent = `Player: ${pScore}`;
+    computerScore.textContent = `Computer: ${cpuScore}`;
+    roundNumber.textContent = `Round: ${rounds}`;
 
 }
 
+function endGame(pScore, cpuScore) {
+    if (pScore < cpuScore) {
+        results.textContent = `Game Over\nYou lose!\nFinal score: ${pScore} to ${cpuScore}`;
+    } else if (pScore > cpuScore) {
+        results.textContent = `Game Over\nYou win!\nFinal score: ${pScore} to ${cpuScore}`;
+    } else {
+        results.textContent = `Game Over\nIt's a draw! Keep playing until somebody wins!\nFinal score: ${pScore} to ${cpuScore}`;
+    }
+}
 
-game();
+// function game() {
+//     let playerScore = 0, computerScore = 0;
+
+//     for (let i = 0; i < 5; i++) {
+//         let round = playRound(playerSelection(), computerPlay());
+//         console.log(round);
+//         if (round.includes('win')) {
+//             playerScore += 1;
+//         } else if (round.includes('lose')) {
+//             computerScore += 1;
+//         } else {
+//             continue;
+//         }
+//     }
+
+//     if (playerScore > computerScore) {
+//         console.log(`Congratulations! You win! Final score: ${playerScore} to ${computerScore}`);
+//     } else if (computerScore > playerScore) {
+//         console.log(`You lost! Better luck next time! Final score: ${playerScore} to ${computerScore}`);
+//     } else {
+//         console.log(`It's a draw! Try again until somebody wins! Final score: ${playerScore} to ${computerScore}`);
+//     }
+
+// }
+
+
+// game();
 
 
 

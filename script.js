@@ -18,88 +18,16 @@ let cpuScore = 0;
 
 // Event listeners for play buttons
 rockButton.addEventListener('click', () => {
-    playRound('rock', computerPlay(), rounds);
+    playRound('rock', computerPlay());
 });
 
 paperButton.addEventListener('click', () => {
-    playRound('paper', computerPlay(), rounds);
+    playRound('paper', computerPlay());
 });
 
 scissorsButton.addEventListener('click', () => {
-    playRound('scissors', computerPlay(), rounds);
+    playRound('scissors', computerPlay());
 });
-
-
-function computerPlay() {
-    let rps = ['rock', 'paper', 'scissors'];
-    turn = Math.floor(Math.random() * rps.length);
-    return rps[turn];
-}
-
-
-function playRound(playerSelection, computerSelection, rounds) {
-    if (rounds >= 5) {
-        endGame(pScore, cpuScore);
-    }
-
-    if (playerSelection === 'rock') {
-
-        switch (computerSelection) {
-            case 'rock':
-                results.textContent = 'You chose rock.\nComputer chooses rock...\nDraw! Play again!';
-                rounds += 1;
-                update(pScore, cpuScore, rounds);
-                break;
-
-            case 'paper':
-                results.textContent = 'You chose rock.\nComputer chooses paper...\nPaper covers rock.\nYou lose!';
-                cpuScore += 1;
-                rounds += 1;
-                update(pScore, cpuScore, rounds);
-                break;
-
-            case 'scissors':
-                results.textContent = 'You chose rock.\nComputer chooses scissors...\nRock smashes scissors.\nYou win!';
-                pScore += 1;
-                rounds += 1;
-                update(pScore, cpuScore, rounds);
-                break;
-
-        }
-
-    } else if (playerSelection === 'paper') {
-        switch (computerSelection) {
-            case 'rock':
-                results.textContent = 'You chose paper.\nComputer chooses rock...\nPaper covers rock.\nYou win!';
-                break;
-
-            case 'paper':
-                results.textContent = 'You chose paper.\nComputer chooses paper...\nDraw! Play again!';
-                break;
-
-            case 'scissors':
-                results.textContent = 'You chose paper.\nComputer chooses scissors...\nScissors cut paper.\nYou lose!';
-                break;
-
-        }
-
-    } else if (playerSelection === 'scissors') {
-        switch (computerSelection) {
-            case 'rock':
-                results.textContent = 'You chose scissors.\nComputer chooses rock...\nRock smashes scissors.\nYou lose!';
-                break;
-
-            case 'paper':
-                results.textContent = 'You chose scissors.\nComputer chooses paper...\nScissors cut paper.\nYou win!';
-                break;
-
-            case 'scissors':
-                results.textContent = 'You chose scissors.\nComputer chooses scissors...\nDraw! Play again!';
-                break;
-
-        }
-    }
-}
 
 function update(pScore, cpuScore, rounds) {
 
@@ -117,7 +45,127 @@ function endGame(pScore, cpuScore) {
     } else {
         results.textContent = `Game Over\nIt's a draw! Keep playing until somebody wins!\nFinal score: ${pScore} to ${cpuScore}`;
     }
+    reset();
 }
+
+function reset() {
+    pScore = 0;
+    cpuScore = 0;
+    rounds = 0;
+}
+
+function computerPlay() {
+    let rps = ['rock', 'paper', 'scissors'];
+    turn = Math.floor(Math.random() * rps.length);
+    return rps[turn];
+}
+
+
+function playRound(playerSelection, computerSelection) {
+
+
+    if (playerSelection === 'rock') {
+
+        switch (computerSelection) {
+            case 'rock':
+                results.textContent = 'You chose rock.\nComputer chooses rock...\nDraw! Play again!';
+                rounds += 1;
+                update(pScore, cpuScore, rounds);
+                if (rounds >= 5) {
+                    endGame(pScore, cpuScore);
+                }
+                break;
+
+            case 'paper':
+                results.textContent = 'You chose rock.\nComputer chooses paper...\nPaper covers rock.\nYou lose!';
+                cpuScore += 1;
+                rounds += 1;
+                update(pScore, cpuScore, rounds);
+                if (rounds >= 5) {
+                    endGame(pScore, cpuScore);
+                }
+                break;
+
+            case 'scissors':
+                results.textContent = 'You chose rock.\nComputer chooses scissors...\nRock smashes scissors.\nYou win!';
+                pScore += 1;
+                rounds += 1;
+                update(pScore, cpuScore, rounds);
+                if (rounds >= 5) {
+                    endGame(pScore, cpuScore);
+                }
+                break;
+
+        }
+
+    } else if (playerSelection === 'paper') {
+        switch (computerSelection) {
+            case 'rock':
+                results.textContent = 'You chose paper.\nComputer chooses rock...\nPaper covers rock.\nYou win!';
+                pScore += 1;
+                rounds += 1;
+                update(pScore, cpuScore, rounds);
+                if (rounds >= 5) {
+                    endGame(pScore, cpuScore);
+                }
+                break;
+
+            case 'paper':
+                results.textContent = 'You chose paper.\nComputer chooses paper...\nDraw! Play again!';
+                rounds += 1;
+                update(pScore, cpuScore, rounds);
+                if (rounds >= 5) {
+                    endGame(pScore, cpuScore);
+                }
+                break;
+
+            case 'scissors':
+                results.textContent = 'You chose paper.\nComputer chooses scissors...\nScissors cut paper.\nYou lose!';
+                cpuScore += 1;
+                rounds += 1;
+                update(pScore, cpuScore, rounds);
+                if (rounds >= 5) {
+                    endGame(pScore, cpuScore);
+                }
+                break;
+
+        }
+
+    } else if (playerSelection === 'scissors') {
+        switch (computerSelection) {
+            case 'rock':
+                results.textContent = 'You chose scissors.\nComputer chooses rock...\nRock smashes scissors.\nYou lose!';
+                cpuScore += 1;
+                rounds += 1;
+                update(pScore, cpuScore, rounds);
+                if (rounds >= 5) {
+                    endGame(pScore, cpuScore);
+                }
+                break;
+
+            case 'paper':
+                results.textContent = 'You chose scissors.\nComputer chooses paper...\nScissors cut paper.\nYou win!';
+                pScore += 1;
+                rounds += 1;
+                update(pScore, cpuScore, rounds);
+                if (rounds >= 5) {
+                    endGame(pScore, cpuScore);
+                }
+                break;
+
+            case 'scissors':
+                results.textContent = 'You chose scissors.\nComputer chooses scissors...\nDraw! Play again!';
+                rounds += 1;
+                update(pScore, cpuScore, rounds);
+                if (rounds >= 5) {
+                    endGame(pScore, cpuScore);
+                }
+                break;
+
+        }
+    }
+}
+
 
 // function game() {
 //     let playerScore = 0, computerScore = 0;

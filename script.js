@@ -1,12 +1,21 @@
+const rockButton = document.querySelector('.btn-rock');
+const paperButton = document.querySelector('.btn-paper');
+const scissorsButton = document.querySelector('.btn-scissers');
+
+rockButton.addEventListener('click', playRound('rock', computerPlay()));
+paperButton.addEventListener('click', playRound('paper', computerPlay()));
+scissorsButton.addEventListener('click', playerSelection('scissors', computerPlay()));
+
+
 function computerPlay() {
     let rps = ['rock', 'paper', 'scissors'];
     turn = Math.floor(Math.random() * rps.length);
     return rps[turn];
 }
 
-function playerSelection() {
-    return prompt("Choose rock, paper, or scissors: ").toLowerCase();
-}
+// function playerSelection(choice) {
+// return prompt("Choose rock, paper, or scissors: ").toLowerCase();
+// }
 
 function playRound(playerSelection, computerSelection) {
 
@@ -64,17 +73,17 @@ function playRound(playerSelection, computerSelection) {
 function game() {
     let playerScore = 0, computerScore = 0;
 
-    for (let i = 0; i < 5; i++) {
-        let round = playRound(playerSelection(), computerPlay());
-        console.log(round);
-        if (round.includes('win')) {
-            playerScore += 1;
-        } else if (round.includes('lose')) {
-            computerScore += 1;
-        } else {
-            continue;
-        }
-    }
+    // for (let i = 0; i < 5; i++) {
+    //     let round = playRound(playerSelection(), computerPlay());
+    //     console.log(round);
+    //     if (round.includes('win')) {
+    //         playerScore += 1;
+    //     } else if (round.includes('lose')) {
+    //         computerScore += 1;
+    //     } else {
+    //         continue;
+    //     }
+    // }
 
     if (playerScore > computerScore) {
         console.log(`Congratulations! You win! Final score: ${playerScore} to ${computerScore}`);
